@@ -1,0 +1,4 @@
+/vendor/
+/inc/random-name
+.idea
+composer.lock

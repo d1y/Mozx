@@ -1,0 +1,10 @@
+{
+	"MOX_VERSION": "0.0.1",
+	"MOX_AUTHOR": "@d1y",
+	"MOX_AUTHOR_LINK": "http://d1y.live",
+	"MOX_DB_HOST": "localhost",
+	"MOX_DB_USER": "root",
+	"MOX_DB_PWD": "root",
+	"MOX_DB_NAME": "music",
+	"MOX_DB_PORT": 8889
+}
