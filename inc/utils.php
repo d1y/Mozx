@@ -67,4 +67,6 @@ function letSQL() {
   return $database;
 };
 
-
+// var
+$currentPath = $_SERVER['DOCUMENT_ROOT'];
+$currentTemp = $currentPath.'/templete/';
