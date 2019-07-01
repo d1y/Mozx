@@ -32,7 +32,9 @@ if ($_GET['go']) $_type = $_GET['go'];
         <div class="push_music collapse <?php echo $_type == 'music' ? 'show' : '' ?>">
           <?php require_once($currentTemp.'upload_music.php') ?>
         </div>
-        <div class="push_post collapse <?php echo $_type == 'post' ? 'show' : '' ?>">3</div>
+        <div class="push_post collapse <?php echo $_type == 'post' ? 'show' : '' ?>">
+          <?php require_once($currentTemp.'upload_post.php') ?>
+        </div>
       </div>
     </div>
   </div>

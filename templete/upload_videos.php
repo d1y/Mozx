@@ -11,8 +11,11 @@
   <p>视频封面设置</p>
   <hr>
   <div class="p-2">
-    <button type="button" class="btn btn-primary">上传图片</button>
-    <button type="button" class="btn btn-danger">URL</button>
+    <div class="pb-3 collapse">
+      <input type="text" class="form-control">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="openSM()">上传图片</button>
+    <button type="button" class="btn btn-danger prURL">URL</button>
   </div>
   <hr>
   <p>标题</p>

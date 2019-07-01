@@ -17,15 +17,15 @@ $flag = true;
       <li class="nav-item active">
         <a class="nav-link" href="#">主站</a>
       </li>
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <a href="#" class="nav-link">用户管理</a>
-      </li> -->
-      <!-- <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <a href="#" class="nav-link">后台管理</a>
-      </li> -->
-      <!-- <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <a href="#" class="nav-link">主题设置</a>
-      </li> -->
+      </li> 
       <li class="nav-item">
         <a href="#" class="nav-link btn btn-danger text-white pl-4 pr-4 ml-4">投稿</a>
       </li>
@@ -37,7 +37,7 @@ $flag = true;
   </div>
   <?php endif ?>
 </nav>
-<div style="position: relative;width: 100vw;overflow: hidden;">
+<div style="position: relative;overflow: hidden;">
   <div style="
     background: url('https://i.loli.net/2018/12/23/5c1f37317b88a.png');
     position: absolute;
