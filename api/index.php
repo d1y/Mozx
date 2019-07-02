@@ -8,17 +8,30 @@ require_once('../inc/utils.php');
 require_once($thePath);
 
 $cls = new stdClass();
-
 $db = letSQL();
 
 define('METHOD', $_SERVER['REQUEST_METHOD']);
 define('DATA', $_REQUEST);
 
-$_type = DATA['type'] || '';
+$_type = DATA['type'];
 
 if (METHOD  == 'GET') {
 	if ($_type == 'user') {
 		$cls->msg = 'suppot POST method';
+	} else if ($_type == 'bili') {
+		$aid = $_GET['aid'];
+		
+		if (!$aid) {
+			$cls->code = 400;
+			$cls->msg = '请传递cid';
+		} else {
+			$data = json_decode(setCURL($aid))->data;
+			$cls->code = 200;
+			$cls->aid = $aid;
+			$cls->title = $data->title;
+			$cls->pic = $data->pic;
+			$cls->desc = $data->desc;
+		}
 	}
 } else if (METHOD == 'POST') {
 	/*

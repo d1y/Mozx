@@ -67,6 +67,17 @@ function letSQL() {
   return $database;
 };
 
+function setCURL($id = 20160529, $flag = true) {
+  if (substr($id,0,2) == 'av') $id = substr($id,2);
+  $url = $flag ? "https://api.bilibili.com/x/web-interface/view?aid=$id" : $id;
+  $ch = curl_init(); 
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+  $output = curl_exec($ch); 
+  curl_close($ch);
+  return $output;
+}
+
 // var
 $currentPath = $_SERVER['DOCUMENT_ROOT'];
 $currentTemp = $currentPath.'/templete/';

@@ -26,13 +26,13 @@ if ($_GET['go']) $_type = $_GET['go'];
     <hr>
     <div class="w-100 overflow-hidden mt-2">
       <div class="push-wrap clearfix">
-        <div class="push_videos collapse <?php echo $_type == 'videos' ? 'show' : '' ?>">
+        <div class="push-item push_videos collapse <?php echo $_type == 'videos' ? 'show' : '' ?>">
           <?php require_once($currentTemp.'upload_videos.php') ?>
         </div>
-        <div class="push_music collapse <?php echo $_type == 'music' ? 'show' : '' ?>">
+        <div class="push-item push_music collapse <?php echo $_type == 'music' ? 'show' : '' ?>">
           <?php require_once($currentTemp.'upload_music.php') ?>
         </div>
-        <div class="push_post collapse <?php echo $_type == 'post' ? 'show' : '' ?>">
+        <div class="push-item push_post collapse <?php echo $_type == 'post' ? 'show' : '' ?>">
           <?php require_once($currentTemp.'upload_post.php') ?>
         </div>
       </div>
