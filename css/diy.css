@@ -75,3 +75,6 @@ div .upload-cover:hover {
   box-shadow: none;
   outline: none;
 }
+img[src=""] {
+  display: none;
+}

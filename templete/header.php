@@ -9,3 +9,4 @@
   <link href="https://cdn.bootcss.com/pace/1.0.2/themes/black/pace-theme-big-counter.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/@icon/caomei-icons/caomei-icons.css">
   <link rel="stylesheet" href="/css/bilibili.css">
+  <link rel="icon" href="//bilibili.com/favicon.ico">

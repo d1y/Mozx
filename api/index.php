@@ -1,6 +1,6 @@
 <?php
 
-header("Content-Type: application/json;charset:utf-8");
+header("Content-Type: application/json;charset=utf-8");
 
 $thePath = $_SERVER['DOCUMENT_ROOT'].'/inc/random-name/randomNameGenerator.php';
 
@@ -20,18 +20,49 @@ if (METHOD  == 'GET') {
 		$cls->msg = 'suppot POST method';
 	} else if ($_type == 'bili') {
 		$aid = $_GET['aid'];
-		
+		$get = $_GET['get'];
 		if (!$aid) {
 			$cls->code = 400;
 			$cls->msg = '请传递cid';
 		} else {
-			$data = json_decode(setCURL($aid))->data;
-			$cls->code = 200;
-			$cls->aid = $aid;
-			$cls->title = $data->title;
-			$cls->pic = $data->pic;
-			$cls->desc = $data->desc;
+			if (substr($aid,0,2) == 'av') $aid = substr($aid,2);
+			switch ($get) {
+				case 'cover':
+					$data = json_decode(setCURL($aid))->data;
+					$cls->code = 200;
+					$cls->aid = $aid;
+					$cls->title = $data->title;
+					$cls->pic = $data->pic;
+					$cls->desc = $data->desc;
+					break;
+				case 'download':
+					$now = time();
+					$url_query = array(
+						'callback'=> 'callbackfunction',
+						'aid'=> $aid,
+						'page'=> 1,
+						'platform'=> 'html5',
+						'quality'=> 1,
+						'vtype'=> 'mp4',
+						'type'=> 'jsonp',
+						'_'=> $now
+					);
+					$data = http_build_query($url_query);
+					$cls->test = $data;
+					$genURL = "https://api.bilibili.com/playurl?$data";
+					$cls->URL = $genURL;
+					$data = json_decode(setCURL($genURL,false));
+					$cls->fuck = $data;
+				case 'info':
+					$data = setCURL("https://api.bilibili.com/x/web-interface/view?aid=$aid",false);
+					$cls = json_decode($data);
+				default:
+					break;
+			}
 		}
+	} else {
+		$cls->code = 250;
+		$cls->msg = '未传递参数';
 	}
 } else if (METHOD == 'POST') {
 	/*

@@ -68,11 +68,14 @@ function letSQL() {
 };
 
 function setCURL($id = 20160529, $flag = true) {
+  $ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.17 (KHTML, like Gecko) Version/6.0.2 Safari/536.26.17";
   if (substr($id,0,2) == 'av') $id = substr($id,2);
   $url = $flag ? "https://api.bilibili.com/x/web-interface/view?aid=$id" : $id;
   $ch = curl_init(); 
   curl_setopt($ch, CURLOPT_URL, $url);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_REFERER, 'http://www.google.cn/');
+  curl_setopt($ch, CURLOPT_USERAGENT, $ua);
   $output = curl_exec($ch); 
   curl_close($ch);
   return $output;
