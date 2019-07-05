@@ -5,10 +5,10 @@
     </div>
     <div class="col-8">
       <div>
-        <button type="button" name="" id="" class="btn btn-primary">本地上传</button>
-        <button type="button" name="" id="" class="btn btn-primary">网易云</button>
-        <button type="button" name="" id="" class="btn btn-primary">QQ音乐</button>
-        <button type="button" name="" id="" class="btn btn-primary">虾米音乐</button>
+        <button type="button" onclick="openSM(this)" data-open="https://catbox.moe" name="" id="" class="btn btn-primary">本地上传</button>
+        <button type="button" name="" id="" class="btn btn-primary disabled">网易云</button>
+        <button type="button" name="" id="" class="btn btn-primary disabled">QQ音乐</button>
+        <button type="button" name="" id="" class="btn btn-primary disabled">虾米音乐</button>
       </div>
       <p class="mt-4 mb-3">稿件标题</p>
       <input type="text" class="form-control">

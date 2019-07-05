@@ -78,3 +78,11 @@ div .upload-cover:hover {
 img[src=""] {
   display: none;
 }
+
+.opc {
+  opacity: 0;
+  transition: all .3s;
+}
+.opc:hover {
+  opacity: 1;
+}

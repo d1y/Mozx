@@ -81,10 +81,16 @@ if (METHOD  == 'GET') {
 	if ($_type == 'user') {
 		$flag = $_user && ($_pwd || $_pwd == '0');
 		$table = 'user'; // check username && password
+		if (!$db->query(
+			hasTable() // `user` table has
+		)->fetchAll()) {
+			$cls->dev = '数据表创建成功';
+			$eyes = $db->query("CREATE TABLE `music`.`user` ( `id` TEXT NOT NULL , `nickname` TEXT NOT NULL , `username` TEXT NOT NULL , `password` TEXT NOT NULL , `login` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `view` INT NOT NULL , `admin` TINYINT(1) NOT NULL DEFAULT '0' ) ENGINE = InnoDB");
+			$cls->fetch = $eyes->fetchAll();
+		}
 		$test = $db->has($table,[
 			"username" => $_user
 		]);
-		$cls->flag = $test;
 		if ($_is == '1') { // 注册
 			if ($flag) {
 				if ($test) {
@@ -96,17 +102,19 @@ if (METHOD  == 'GET') {
 					$nick = $r->generateNames(1)[0];
 					$id = uniqid();
 					$cls->code = 200;
-					$cls->nick = $nick;
+					$cls->id = $id;
+					$cls->nickname = $nick;
 					$cls->usernmae = $_user;
 					$cls->password = $_pwd;
+					$cls->login = time();
 					$cls->msg = '注册成功';
-					$cls->id = $id;
-					$cls->time = time();
-					$db->insert($table,[
+					$cls->view = 1;
+					$d = $db->insert($table,[
 						'id' => $id,
-						'nick' => $nick,
+						'nickname' => $nick,
 						'username' => $_user,
-						'password' => $_pwd
+						'password' => $_pwd,
+						'view' => 1
 					]);
 				}
 			}
@@ -135,6 +143,8 @@ if (METHOD  == 'GET') {
 					$cls->msg = '账号不存在';
 				};
 			}
+		} else {
+			$cls->msg = '未知错误';
 		}
 	};
 } else {

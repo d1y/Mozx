@@ -164,7 +164,7 @@ $(() => {
 		return `<li class="row overflow-hidden w-100 mt-2">
 			<div class="col-6">
 				<h5 contenteditable="true">${title}</h5>
-				<p contenteditable="true" class="font-weight-normal">${url}</p>
+				<p contenteditable="true" class="font-weight-normal opc">${url}</p>
 			</div>
 			<div class="col-2 text-right">
 				<button class="btn btn-danger" onclick="dropWrap(this)">删除</button>
@@ -182,8 +182,16 @@ $(() => {
 		}
 		let r = t.split(',')
 		for (let i=0; i<r.lenght; i++) {
-			r[i] = r[i].trim()
-		}
+			r[i] = r[i].trim();
+		};
+		$.ajax({
+			url: `https://streamja.com/embed/Q6bq`,
+			success(data) {
+				console.log('success')
+				console.log(data)
+			},
+			error: e=> console.log(e)
+		})
 		let con = genACG(r[0],r[2])
 		if (e.shiftKey) {
 			listWrap.prepend(con)

@@ -4,6 +4,7 @@
   include_once $rt.'/inc/utils.php';
   $lang = checkLang();
   $title = '/reg';
+  $flag = false;
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -12,6 +13,7 @@
     <?php require_once($rt."/templete/header.php") ?>
   </head>
   <body>
+    <?php require_once($currentTemp.'nav.php') ?>
     <div class="text-center">
       <div class="" style="background:url('https://i.loli.net/2019/06/27/5d14707ebc36220981.png')"></div>
       <div class="form-signin">

@@ -2,7 +2,7 @@
 
 require_once $_SERVER["DOCUMENT_ROOT"] . '/inc/utils.php';
 $lang = checkLang();
-$flag = true;
+// $flag = true;
 
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
@@ -18,14 +18,8 @@ $flag = true;
         <a class="nav-link" href="#">主站</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">用户管理</a>
+        <a href="#" class="nav-link">管理员设置</a>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">后台管理</a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">主题设置</a>
-      </li> 
       <li class="nav-item">
         <a href="#" class="nav-link btn btn-danger text-white pl-4 pr-4 ml-4">投稿</a>
       </li>

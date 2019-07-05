@@ -15,7 +15,7 @@
     <label for="inputPassword" class="sr-only"><?php echo $lang ? '✨ 密码' : 'Password' ?></label>
     <input type="password" id="inputPassword" class="form-control mt-sm-2" placeholder="<?php echo $lang ? '密码' : 'Password' ?>" required>
     <div class="checkbox mb-3">
-      <a href="/page/reg.php">👋 未注册?</a> <strong>&nbsp;&nbsp;&nbsp;</strong>
+      <a href="/page/user/reg.php">👋 未注册?</a> <strong>&nbsp;&nbsp;&nbsp;</strong>
       <a href="" id="forget">🌝 忘记密码?</a>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn" data-type="in"><?php echo $lang ? '👾 登录' : 'Sign in' ?></button>

@@ -67,6 +67,17 @@ function letSQL() {
   return $database;
 };
 
+// has database & tables
+function hasTable($database = 'music', $table = 'user') {
+  $_str = "select t.table_name from information_schema.TABLES t where t.TABLE_SCHEMA ='$database' and t.TABLE_NAME ='$table'";
+  return $_str;
+}
+
+function hasDatabase($databaseName = 'music') {
+  $_str = "SELECT information_schema.SCHEMATA.SCHEMA_NAME FROM information_schema.SCHEMATA where SCHEMA_NAME='$databaseName'";
+  return $_str;
+}
+
 function setCURL($id = 20160529, $flag = true) {
   $ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.17 (KHTML, like Gecko) Version/6.0.2 Safari/536.26.17";
   if (substr($id,0,2) == 'av') $id = substr($id,2);

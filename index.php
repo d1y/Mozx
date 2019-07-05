@@ -2,9 +2,9 @@
 
   require_once("./inc/utils.php");
 
-  $title = `/index`;
-
-  $flag = true;
+  $title = '/index';
+  // @flag => 
+  $flag = false;
 
 ?>
 <!DOCTYPE html>
@@ -14,9 +14,10 @@
   <?php require_once("./templete/header.php"); ?>
 </head>
 <body>
+  <?php include_once('./templete/nav.php') ?>
   <div class="container-fluid">
-    <?php require_once($_SERVER["DOCUMENT_ROOT"]."/templete/nav.php") ?>
     <?php if (isset($_COOKIE['user'])): ?>
+      <?php header("Location: /page/home") ?>
       <?php include_once('./templete/logged.php'); ?>
     <?php else: ?>
       <?php include_once('./templete/login.php'); ?>

@@ -5,7 +5,7 @@
   <input type="text" class="form-control mb-4">
   <p class="mb-3">封面</p>
   <div class="mb-3">
-    <button type="button" class="btn btn-primary mr-2">上传图片</button>
+    <button type="button" class="btn btn-primary mr-2" onclick="openSM(this)" data-open="https://smms.netlify.com/">上传图片</button>
     <button type="button" class="btn btn-secondary">URL</button>
   </div>
   <p class="mb-3">标签</p>

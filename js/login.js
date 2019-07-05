@@ -17,7 +17,15 @@ $(() => {
 					pwd
 				},
 				success(data) {
-					console.log(data)
+					let icon = `error`
+					let flag  = data.msg == '注册成功'
+					if (flag) icon = `success`
+					swal({
+						icon,
+						title: data.msg,
+						text: flag ? '将在5秒内自动跳转到首页' : ''
+					})
+					flag ? setTimeout(()=>window.location.href = '/page/home',6000) : ''
 				},
 				error: e=> console.log(e)
 			})
@@ -58,10 +66,10 @@ $(() => {
 									pwdWrap.val('')
 									break;
 								case 200:
-									window.locatino.href = './home'
+									window.locatino.href = '/page/home'
 									break;
 								default:
-									window.location.href = '/page/reg.php'
+									window.location.href = '/page/user/reg.php'
 							}
 						}
 					})
