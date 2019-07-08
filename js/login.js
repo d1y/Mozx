@@ -42,18 +42,19 @@ $(() => {
 	      success(data) {
 	        let title = data.msg;
 	        let icon = `success`;
-	        let text = ``;
+					let text = ``;
 					let code = 100; // 100 - 200 - 400
 	        if (data.code == 400) {
 	          icon = `error`;
 	        };
 	        if (data.msg == "密码错误") {
+						icon = 'error'
 	          text = `· 请检查你输入的密码(*^*) ·`
 	        } else if (data.msg == "账号不存在") {
-						code = 400;
+						icon = `error`
 	          text = `· 我擦没有账号,快去注册一个去:( ·`
 	        } else {
-						code = 200
+						icon = `success`
 	          text = `· 填写正确,将跳转到用户界面 ·`
 	        }
 	        swal({

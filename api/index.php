@@ -91,7 +91,7 @@ if (METHOD  == 'GET') {
 		$test = $db->has($table,[
 			"username" => $_user
 		]);
-		if ($_is == '1') { // 注册
+		if ($_is == 'reg') { // 注册
 			if ($flag) {
 				if ($test) {
 					$cls->msg = '已存在用户名';
@@ -118,7 +118,7 @@ if (METHOD  == 'GET') {
 					]);
 				}
 			}
-		} else if ($_is == '0') { // 登录
+		} else if ($_is == 'login') { // 登录
 			if ($flag) {
 				$_check = $db->select($table,'*',[
 					"username" => $_user
@@ -143,8 +143,29 @@ if (METHOD  == 'GET') {
 					$cls->msg = '账号不存在';
 				};
 			}
-		} else {
-			$cls->msg = '未知错误';
+		} else if ($_is == 'view') { // 查看用户
+			$_offset = 0;
+			$_page = (int)($_POST['page'] || 1);
+			$_count = (int)($_POST['count'] || 10);
+			$_totalCount = $db->count($table);
+			$cls->count = $_totalCount;
+			if ($_page > 1) {
+				$_offset = $_count * $_page;
+			}
+			--$_page;
+			$dev = $db->select($table,[
+				'id',
+				'username',
+				'nickname',
+				'login'
+			],[
+				"LIMIT" => [$_offset, $_count]
+			]);
+			$cls->option = [
+				'count' => $_count,
+				'offset'=> $_offset
+			];
+			$cls->run = $dev;
 		}
 	};
 } else {
