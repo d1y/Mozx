@@ -26,25 +26,25 @@
         </div>
         <div class="sidebar-wrapper">
           <ul class="nav">
-            <li class="nav-item active  ">
+            <li class="nav-item <?php echo $_type == 'dash' ? 'active' : '' ?>">
               <a class="nav-link" href="./dashboard.html">
                 <i class="material-icons">dashboard</i>
                 <p><?php echo $lang ? '仪表盘' : 'Dashboard' ?></p>
               </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item <?php echo $_type == 'user' ? 'active' : '' ?>">
               <a class="nav-link" href="./user.html">
                 <i class="material-icons">person</i>
                 <p><?php echo $lang ? '用户管理' : 'User Profile' ?></p>
               </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item <?php echo $_type == 'post' ? 'active' : '' ?>">
               <a class="nav-link" href="./tables.html">
                 <i class="material-icons">content_paste</i>
                 <p>稿件管理</p>
               </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item <?php echo $_type == 'diy' ? 'active' : '' ?>">
               <a class="nav-link" href="./tables.html">
                 <i class="material-icons">wallpaper</i>
                 <p>主题设置</p>

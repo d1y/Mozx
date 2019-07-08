@@ -144,15 +144,20 @@ if (METHOD  == 'GET') {
 				};
 			}
 		} else if ($_is == 'view') { // 查看用户
+			$_currPage = (int)DATA['page'];
+			$_currCount = (int)DATA['count'];
+			$_currTest = 4; // defalut count
 			$_offset = 0;
-			$_page = (int)($_POST['page'] || 1);
-			$_count = (int)($_POST['count'] || 10);
+
+			$_page = $_currPage ? $_currPage : 1;
+			$_count = $_currCount ? $_currCount : $_currTest;
 			$_totalCount = $db->count($table);
-			$cls->count = $_totalCount;
-			if ($_page > 1) {
-				$_offset = $_count * $_page;
-			}
 			--$_page;
+			$calc = $_count * $_page;
+			$div = $_totalCount / $_count;
+			$sur = $_totalCount % $_count;
+			$_offset = $calc;
+			if ($_page == 0) $_offset = 0;
 			$dev = $db->select($table,[
 				'id',
 				'username',
@@ -161,10 +166,8 @@ if (METHOD  == 'GET') {
 			],[
 				"LIMIT" => [$_offset, $_count]
 			]);
-			$cls->option = [
-				'count' => $_count,
-				'offset'=> $_offset
-			];
+			$cls->page = $_page;
+			$cls->offset = $_offset;
 			$cls->run = $dev;
 		}
 	};
