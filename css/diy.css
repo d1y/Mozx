@@ -86,3 +86,20 @@ img[src=""] {
 .opc:hover {
   opacity: 1;
 }
+.pager {
+  padding-left: 0;
+  margin: 20px 0;
+  text-align: center;
+  list-style: none;
+}
+.pager li {
+  list-style: none;
+}
+.pager li>a, .pager li>span {
+  display: inline-block;
+  padding: 5px 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  transition: all .3s;
+}

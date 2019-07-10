@@ -158,6 +158,7 @@ if (METHOD  == 'GET') {
 			$sur = $_totalCount % $_count;
 			$_offset = $calc;
 			if ($_page == 0) $_offset = 0;
+			$cls->totalpage = ceil($div);
 			$dev = $db->select($table,[
 				'id',
 				'username',
@@ -166,9 +167,9 @@ if (METHOD  == 'GET') {
 			],[
 				"LIMIT" => [$_offset, $_count]
 			]);
-			$cls->page = $_page;
-			$cls->offset = $_offset;
-			$cls->run = $dev;
+			$cls->currentpage = $_page+1;
+			$cls->data = $dev;
+			$cls->msg = '获取成功';
 		}
 	};
 } else {
