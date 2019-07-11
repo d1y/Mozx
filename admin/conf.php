@@ -67,11 +67,12 @@
             </div>
             <?php } else if ($_type == 'user') { ?>
             <div>
-              <button class="btn btn-success">添加用户</button>
-              <button class="btn btn-danger">删除用户</button>
+              <button class="btn btn-success" data-type="add_user">添加用户</button>
+              <button class="btn btn-danger" data-type="del_user">删除用户</button>
+              <button class="btn" data-type="del_all">删除全部</button>
             </div>
             <div class="input-group input-group-lg mb-2">
-              <input type="text" class="form-control" placeholder="搜索用户">
+              <input type="text" id="confirm_search" class="form-control" placeholder="搜索用户">
               <button class="btn btn-success">
                 <i class="material-icons">search</i>
               </button>
@@ -116,27 +117,28 @@
                       <form>
                         <div class="form-group">
                           <label for="recipient-name" class="col-form-label">id:</label>
-                          <input type="text" class="form-control" id="recipient-name" disabled>
+                          <input type="text" class="form-control" id="post-id" disabled>
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="col-form-label">nickname:</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" id="post-nickname">
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="col-form-label">password:</label>
-                          <input type="password" class="form-control">
+                          <input type="password" class="form-control" id="post-pwd">
                         </div>
                       </form>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Send message</button>
+                      <button type="button" id="confirm_user" class="btn btn-primary">Confirm</button>
+                      <button type="button" id="confirm_del" class="btn btn-primary">删除账号</button>
                     </div>
                   </div>
                 </div>
               </div>
               <div>
-                <button class="btn btn-success">设置管理员</button>
+                <button class="btn btn-success" id="confirm_admin">设置管理员</button>
               </div>
               <?php } else if ($_type == 'post') { ?>
               <p>post</p>
