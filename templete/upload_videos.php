@@ -5,7 +5,7 @@
   <div class="p-2">
     <button type="button" class="btn btn-primary" data-open="https://streamja.com/" onclick="openSM(this)">上传视频</button>
     <button type="button" class="btn btn-success upload-bili">哔哩哔哩</button>
-    <input placeholder="xxx,x,xxx" class="btn inline-block border addInput" style="min-width:300px;max-width:60%;text-align:left;">
+    <input placeholder="xxx,xxx,x" class="btn inline-block border addInput" style="min-width:300px;max-width:60%;text-align:left;">
     <button type="button" class="btn btn-danger videos_btn">上传</button>
   </div>
   <hr>

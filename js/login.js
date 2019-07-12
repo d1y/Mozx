@@ -12,7 +12,7 @@ $(() => {
 				method: 'POST',
 				data: {
 					type: 'user',
-					is: 1,
+					is: 'reg',
 					user,
 					pwd
 				},
@@ -35,7 +35,7 @@ $(() => {
 	      method: 'POST',
 	      data: {
 	        type: 'user',
-	        is: 0,
+	        is: 'login',
 	        user,
 	        pwd
 	      },
@@ -44,15 +44,15 @@ $(() => {
 	        let icon = `success`;
 					let text = ``;
 					let code = 100; // 100 - 200 - 400
-	        if (data.code == 400) {
-	          icon = `error`;
-	        };
+	        code = data.code
 	        if (data.msg == "密码错误") {
 						icon = 'error'
-	          text = `· 请检查你输入的密码(*^*) ·`
+						text = `· 请检查你输入的密码(*^*) ·`
+						code = 100
 	        } else if (data.msg == "账号不存在") {
 						icon = `error`
-	          text = `· 我擦没有账号,快去注册一个去:( ·`
+						text = `· 我擦没有账号,快去注册一个去:( ·`
+						code = 250;
 	        } else {
 						icon = `success`
 	          text = `· 填写正确,将跳转到用户界面 ·`
@@ -62,12 +62,13 @@ $(() => {
 	        	allowOutsideClick: true
 	        }).then(is=>{
 						if (is) {
+							console.log(code,'test')
 							switch (code) {
 								case 100:
 									pwdWrap.val('')
 									break;
 								case 200:
-									window.locatino.href = '/page/home'
+									window.location.href = '/page/home'
 									break;
 								default:
 									window.location.href = '/page/user/reg.php'

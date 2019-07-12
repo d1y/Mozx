@@ -246,13 +246,42 @@ $(() => {
       saySearch($('#confirm_search').val())
   })
   function saySearch(key) {
-    let q = $(`
-      <ul>
-        <li>不打工测试</li>
-      </ul>
-    `)[0]
-    swal({
-      content: q
+    function gen(arr) {
+      html = '';
+      for (let i=0; i<arr.length; i++) {
+        let curr = arr[i]
+        html += `
+          <li class="row">
+            <input style="border: none" class="col text-secondary" onclick="$(this).select();document.execCommand('Copy', false, null);" value="${curr.id}">
+            <p class="col">${curr.username}</p>
+          </li>
+        `
+      }
+      return $(`
+      <div>
+        <ul>
+          ${html}
+        </ul>
+        <p class="text-secondary">点击id复制</p>
+      </div>
+      `)[0]
+    }
+    $.ajax({
+      url,
+      async: false,
+      method: 'post',
+      data: {
+        type: `user`,
+        is: 'search',
+        keyword: key
+      },
+      success(data) {
+        let result = data.result
+        let genHTML = gen(result)
+        swal({
+          content: genHTML
+        })
+      }
     })
   }
 })

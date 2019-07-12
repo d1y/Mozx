@@ -5,6 +5,7 @@ header("Content-Type: application/json;charset=utf-8");
 $thePath = $_SERVER['DOCUMENT_ROOT'].'/inc/random-name/randomNameGenerator.php';
 
 require_once('../inc/utils.php');
+require_once('../inc/mysql.php');
 require_once($thePath);
 
 $cls = new stdClass();
@@ -15,6 +16,17 @@ define('DATA', $_REQUEST);
 
 $_type = DATA['type'];
 $FUCKID = DATA['id'];
+$_is = DATA['is'];
+
+function createTable($table, $query, $database = 'music') {
+	global $db,$cls;
+	if (!$db->query(
+		hasTable($database,$table)
+	)->fetchAll()) {
+		$db->query($query);
+		$cls->dev = "创建数据表成功 $table";
+	}
+}
 
 if (METHOD  == 'GET') {
 	if ($_type == 'user') {
@@ -66,8 +78,6 @@ if (METHOD  == 'GET') {
 		$cls->msg = '未传递参数';
 	}
 } else if (METHOD == 'POST') {
-
-	$_is = DATA['is'];
 	$_user = DATA['user'];
 	$_pwd = DATA['pwd'];
 
@@ -76,13 +86,7 @@ if (METHOD  == 'GET') {
 	if ($_type == 'user') {
 		$flag = $_user && ($_pwd || $_pwd == '0');
 		$table = 'user'; // check username && password
-		if (!$db->query(
-			hasTable() // `user` table has
-		)->fetchAll()) {
-			$cls->dev = '数据表创建成功';
-			$eyes = $db->query("CREATE TABLE `music`.`user` ( `id` TEXT NOT NULL , `nickname` TEXT NOT NULL , `username` TEXT NOT NULL , `password` TEXT NOT NULL , `login` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `view` INT NOT NULL , `admin` TINYINT(1) NOT NULL DEFAULT '0' ) ENGINE = InnoDB");
-			$cls->fetch = $eyes->fetchAll();
-		}
+		createTable($table,$createUserTable);
 		$test = $db->has($table,[
 			"username" => $_user
 		]);
@@ -94,26 +98,26 @@ if (METHOD  == 'GET') {
 					$cls->code = 400;
 					$cls->time = time();
 				} else {
-					$r = new randomNameGenerator('array');
-					$nick = $r->generateNames(1)[0];
-					$id = uniqid();
-					$cls->code = 200;
-					$cls->id = $id;
-					$cls->nickname = $nick;
-					$cls->usernmae = $_user;
-					$cls->password = $_pwd;
-					$cls->login = time();
-					$cls->msg = '注册成功';
-					$cls->view = 1;
-					$d = $db->insert($table,[
-						'id' => $id,
-						'nickname' => $nick,
-						'username' => $_user,
-						'password' => $_pwd,
-						'view' => 1
-					]);
+						$r = new randomNameGenerator('array');
+						$nick = $r->generateNames(1)[0];
+						$id = uniqid();
+						$cls->code = 200;
+						$cls->id = $id;
+						$cls->nickname = $nick;
+						$cls->usernmae = $_user;
+						$cls->password = $_pwd;
+						$cls->login = time();
+						$cls->msg = '注册成功';
+						$cls->view = 1;
+						$d = $db->insert($table,[
+							'id' => $id,
+							'nickname' => $nick,
+							'username' => $_user,
+							'password' => $_pwd,
+							'view' => 1
+						]);
+					}
 				}
-			}
 				break;
 			
 			case 'login':
@@ -282,6 +286,17 @@ if (METHOD  == 'GET') {
 			default:
 				$cls->code = 400;
 				$cls->msg = '未知错误';
+				break;
+		}
+	} else if ($_type == 'post') {
+		switch ($_is) {
+			case 'videos':
+				createTable('videos',$createVideosTable);
+				
+				break;
+			
+			default:
+				# code...
 				break;
 		}
 	};

@@ -184,15 +184,8 @@ $(() => {
 		for (let i=0; i<r.lenght; i++) {
 			r[i] = r[i].trim();
 		};
-		$.ajax({
-			url: `https://streamja.com/embed/Q6bq`,
-			success(data) {
-				console.log('success')
-				console.log(data)
-			},
-			error: e=> console.log(e)
-		})
-		let con = genACG(r[0],r[2])
+
+		let con = genACG(r[0],r[1])
 		if (e.shiftKey) {
 			listWrap.prepend(con)
 		} else {
