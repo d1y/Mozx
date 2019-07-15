@@ -29,7 +29,7 @@
   <p>简介</p>
   <textarea name="" id="" cols="30" rows="10" class="form-control videos_push_desc" placeholder="尽量写一些关于这个视频的内容"></textarea>
   <div class="mt-4">
-    <button type="button" class="btn btn-primary pl-5 pr-5 mr-4">投稿</button>
+    <button type="button" class="btn btn-primary pl-5 pr-5 mr-4 push-btn" data-post="videos">投稿</button>
     <button type="button" class="btn btn-primary pl-5 pr-5">预览</button>
   </div>
 </div>

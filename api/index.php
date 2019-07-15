@@ -289,14 +289,64 @@ if (METHOD  == 'GET') {
 				break;
 		}
 	} else if ($_type == 'post') {
+		function decodeStr($str) {
+			return urldecode(base64_decode($str));
+		}
+		$_title = decodeStr(DATA['title']);
+		$_cover = decodeStr(DATA['cover']);
+		$_desc = decodeStr(DATA['intro']);
+		$_nick = 1;
+		$_view = 1;
 		switch ($_is) {
 			case 'videos':
 				createTable('videos',$createVideosTable);
-				
+				$_urls = decodeStr(DATA['list']);
+				if (!$_urls) break;
+				$_tags = decodeStr(DATA['tags']);
+				$_hasUserName = $_COOKIE['user'];
+				$theUserTableName = 'user';
+				$_searchUserName = $db->select($theUserTableName,'id',[
+					'username' => $_hasUserName
+				]);
+				if (!$_hasUserName || !$_searchUserName) {
+					$cls->msg = 'cookie 获取失败';
+					$cls->code = 250;
+					break;
+				}
+				$_theID = $_searchUserName[0];
+				$db->insert('videos',[
+					'url' => $_urls,
+					'cover' => $_cover,
+					'title' => $_title,         
+					'tags' => $_tags,
+					'intro' => $_desc,
+					'view' => $_view,
+					'author_id' => $_theID,
+					'id' => date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT),
+					'nick' => $_nick
+				]);
+				$cls->msg = '添加成功';
+				$cls->code = 200;
 				break;
 			
+			case 'music':
+				$_cover = decodeStr(DATA['cover']);
+				$_intro = decodeStr(DATA['intro']);
+				$_list = decodeStr(DATA['list']);
+				$_tags = decodeStr(DATA['style']);
+				$_title = decodeStr(DATA['title']);
+				$db->insert('videos',[
+					'url'  => $_list,
+					'cover'=> $_cover,
+					'title'=> $_title,
+					'tags' => $_tags,
+					'intro'=> $_intro,
+					'view'=> 1
+				])
+				break;
 			default:
-				# code...
+				$cls->code = 404;
+				$cls->msg = '未知错误 :(';
 				break;
 		}
 	};
