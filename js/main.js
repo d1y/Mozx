@@ -199,6 +199,9 @@ $(() => {
 		result.is =  'videos'
 		return result
 	}
+	function val($o) {
+		return $o.val().trim()
+	}
 	function genMusicInfo() {
 		let errorText = 'fail', cls = '.music_push_'
 		let imgSRC = $('.upload-cover').css('background-image')
@@ -211,11 +214,8 @@ $(() => {
 			span = $(item).find('span').text().trim()
 			input = $(item).find('input').val().trim()
 			if (span == '可编辑标题' || input == '') return true
-			values.push({ span, input })
+			values.push({ title:span, url:input })
 		})
-		function val($o) {
-			return $o.val().trim()
-		}
 		let pushTitle = $(`${cls}title`),
 				pushStyle = $(`${cls}style`),
 				pushDesc = $(`${cls}desc`)
@@ -229,7 +229,25 @@ $(() => {
 			is:   'music'
 		}
 	}
-	let pushVideosData = {list:''};
+	function genPostInfo() {
+		let _title = btoaString(val($('.write_title'))),
+				_cover = btoaString(val($('.write_input'))),
+				_tags = btoaString(val($('.write_tags'))),
+				_show = btoaString(val($('.write_show'))),
+				_md = btoaString(JSON.stringify(val($('#text-input'))))
+		return {
+			title:_title,
+			cover:_cover,
+			tags:_tags,
+			show:_show,
+			md:_md,
+			type: 'post',
+			is: 'write'
+		}
+	}
+	let pushVideosData = {list:''},
+			pushMusicData = {list:''},
+			pushWriteData = {content:''}
 	$('.push-btn').on('click',function() {
 		let ERROR = {
 			icon: 'error',
@@ -254,20 +272,34 @@ $(() => {
 				break;
 			case 'music':
 				let value = genMusicInfo();
+				if (pushVideosData.list == value.list) {
+					return swal(ERROR)
+				}
+				if (typeof(value) == 'string') {
+					ERROR.title = '未知错误'
+					return swal(ERROR)
+				}
 				$.ajax({
 					url: `/api/index.php`,
 					data: value,
+					method: 'post',
+					success(data) {
+						pushMusicData = value
+					},
+					error: e=> console.error(e)
+				})
+				break;
+			case 'write':
+				let jump = genPostInfo()
+				$.ajax({
+					url: `/api/index.php`,
+					data: jump,
 					method: 'post',
 					success(data) {
 						console.log(data)
 					},
 					error: e=> console.error(e)
 				})
-				if (typeof(value) == 'string') {
-					ERROR.title = '未知错误'
-					return swal(ERROR)
-				}
-				break;
 			default:
 				break;
 		}
@@ -314,4 +346,19 @@ $(() => {
 		let father = $(ele).parent().parent()
 		father.remove()
 	}
+	let writeCover = $('.write_cover'),
+			writeInput = $('.write_input'),
+			writeToggle = $('.write_toggle')
+	writeInput.hide()
+	writeToggle.on('click',e=> {
+		writeInput.toggle()
+	})
+	writeInput.on('input',function() {
+		let data = $(this).val()
+		if (isURL(data)) writeCover.attr('src',data)
+	})
+	$('button[data-open]').on('click',function() {
+		let open = $(this).attr('data-open')
+		window.location.href = open
+	})
 })

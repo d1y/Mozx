@@ -1,7 +1,35 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once 'jwt.php';
 use Medoo\Medoo;
+
+$TK = new Jwt;
+function TokenCode ($code, $flag = false) {
+  global $TK;
+  $oneDAY = 86400; // 2 day
+  $nowTime = time();
+  $also = [
+    'iss'=>'kozo4',   //该JWT的签发者
+    'iat'=>$nowTime,  //签发时间
+    'exp'=>$nowTime + $oneDAY,  //过期时间
+    'nbf'=>$nowTime,  //该时间之前不接收处理该Token
+    'sub'=>'test',   //面向的用户
+    'jti'=>md5(uniqid('JWT').time())  //该Token唯一标识
+  ];
+  if (!$flag) {
+    $also['sub'] = $code;
+    return $TK::getToken($also);
+  }
+  return $TK::verifyToken($code);
+}
+
+function hasToken() {
+  $token = $_COOKIE['token'];
+  if (!$token) $token = '';
+  return TokenCode($token, true);
+}
+$FACE = hasToken();
 
 /*
 ** 首先把秘钥通过 base64 加密,将其反转 => 获取解密秘钥
@@ -54,7 +82,8 @@ function checkLang() {
 };
 
 function letSQL() {
-  $data = json_decode(file_get_contents('../config.json'));
+  $JSON = $_SERVER['DOCUMENT_ROOT'] . '/config.json';
+  $data = json_decode(file_get_contents($JSON));
   $database = new medoo([
     'database_type' => 'mysql',
     'database_name' => $data->MOX_DB_NAME,

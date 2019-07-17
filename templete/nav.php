@@ -2,8 +2,13 @@
 
 require_once $_SERVER["DOCUMENT_ROOT"] . '/inc/utils.php';
 $lang = checkLang();
-// $flag = true;
-
+$deCode = TokenCode($_COOKIE['token'],true)['sub'];
+$id = letSQL()->select('user',[
+  'id',
+  'admin'
+],[
+  'username'=> $deCode
+])[0];
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
   <a class="navbar-brand" href="#">MOZX</a>
@@ -17,19 +22,21 @@ $lang = checkLang();
       <li class="nav-item active">
         <a class="nav-link" href="#">主站</a>
       </li>
-      <!-- <li class="nav-item">
+      <?php if ($id[0]['admin'] == '1') { ?>
+      <li class="nav-item">
         <a href="#" class="nav-link">管理员设置</a>
-      </li> -->
+      </li>
+      <?php } ?>
       <li class="nav-item">
         <a href="/page/home/upload.php" class="nav-link btn btn-danger text-white pl-4 pr-4 ml-4">投稿</a>
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
-      <?php if (isset($_COOKIE['user'])) { ?>
-        <p class="border border-primary rounded-sm text-primary text-uppercase p-2"><?php echo $_COOKIE['user'] ?></p>
+      <?php if ($FACE) { ?>
+        <button data-open="<?php echo '/page/home/zone.php?id=' . $id['id'] ?>" class="btn btn-outline-primary my-2 my-sm-0" type="submit">个人中心</button>
       <?php } else { ?>
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-right:8px;">登录</button>
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">注册</button>
+        <button data-open="/" class="btn btn-outline-primary my-2 my-sm-0" style="margin-right:8px;">登录</button>
+        <button data-open="/page/user/reg.php" class="btn btn-outline-primary my-2 my-sm-0" >注册</button>
       <?php } ?>
     </div>
   </div>

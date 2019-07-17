@@ -3,7 +3,6 @@
   require_once("./inc/utils.php");
 
   $title = '/index';
-  // @flag => 
   $flag = false;
 
 ?>
@@ -16,7 +15,7 @@
 <body>
   <?php include_once('./templete/nav.php') ?>
   <div class="container-fluid">
-    <?php if (isset($_COOKIE['user'])): ?>
+    <?php if ($FACE): ?>
       <?php header("Location: /page/home") ?>
       <?php include_once('./templete/logged.php'); ?>
     <?php else: ?>
@@ -31,7 +30,7 @@
   </div>
 </body>
 <?php require_once("./templete/script.php"); ?>
-<?php if (!isset($_COOKIE['user'])): ?>
+<?php if (!$FACE): ?>
   <script src="js/login.js"></script>
 <?php endif;?>
 </html>

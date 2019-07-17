@@ -28,6 +28,10 @@ function createTable($table, $query, $database = 'music') {
 	}
 }
 
+function genUUID() {
+	return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+}
+
 if (METHOD  == 'GET') {
 	if ($_type == 'user') {
 		$cls->msg = 'suppot POST method';
@@ -130,12 +134,14 @@ if (METHOD  == 'GET') {
 						if ($_up === $_pwd) {
 							$cls->code = 200;
 							$cls->msg = '登录成功';
+							$codes = TokenCode($_user);
+							$cls->token = $codes;
 							setcookie(
-								'user',
-								$_user,time()+8*60*60,
+								'token',
+								$codes,
+								time()+2*12*60*60,
 								'/'
 							);
-							$cls->cookie = 'cookie 设置成功';
 						} else {
 							$cls->code = 400;
 							$cls->msg = '密码错误';
@@ -297,24 +303,35 @@ if (METHOD  == 'GET') {
 		$_desc = decodeStr(DATA['intro']);
 		$_nick = 1;
 		$_view = 1;
+		function hasFn () {
+			global $cls,$db;
+			$_hasUserName = $_COOKIE['user'];
+			$name = 'user';
+			if (!$_hasUserName) return;
+			$_searchUserName = $db->select($name,'id',[
+				'username' => $_hasUserName
+			]);
+			if (!$_searchUserName) {
+				$cls->msg = 'cookie 获取失败';
+				$cls->code = 250;
+				return;
+			}
+			$_theID = $_searchUserName[0];
+			return $_theID;
+		}
+		$tableM = 'music';
+		$tableV = 'videos';
+		$tableW = 'write';
 		switch ($_is) {
-			case 'videos':
-				createTable('videos',$createVideosTable);
+			case $tableV:
+				createTable($tableV,$createVideosTable);
 				$_urls = decodeStr(DATA['list']);
-				if (!$_urls) break;
+				$_theID = hasFn();
+				$cls->test = $_theID;
+				$_UUID = genUUID();
+				if (!$_urls || !$_theID) break;
 				$_tags = decodeStr(DATA['tags']);
-				$_hasUserName = $_COOKIE['user'];
-				$theUserTableName = 'user';
-				$_searchUserName = $db->select($theUserTableName,'id',[
-					'username' => $_hasUserName
-				]);
-				if (!$_hasUserName || !$_searchUserName) {
-					$cls->msg = 'cookie 获取失败';
-					$cls->code = 250;
-					break;
-				}
-				$_theID = $_searchUserName[0];
-				$db->insert('videos',[
+				$db->insert($tableV,[
 					'url' => $_urls,
 					'cover' => $_cover,
 					'title' => $_title,         
@@ -322,30 +339,57 @@ if (METHOD  == 'GET') {
 					'intro' => $_desc,
 					'view' => $_view,
 					'author_id' => $_theID,
-					'id' => date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT),
+					'id' => $_UUID,
 					'nick' => $_nick
 				]);
-				$cls->msg = '添加成功';
+				$cls->msg = '上传成功';
 				$cls->code = 200;
 				break;
 			
-			case 'music':
-				$_cover = decodeStr(DATA['cover']);
-				$_intro = decodeStr(DATA['intro']);
+			case $tableM:
+				createTable($tableM,$createMusicsTable);
+				$_theID = hasFn();
 				$_list = decodeStr(DATA['list']);
+				if (!$_list || !$_theID) break;
 				$_tags = decodeStr(DATA['style']);
-				$_title = decodeStr(DATA['title']);
-				$db->insert('videos',[
+				$_UUID = genUUID();
+				$db->insert($tableM,[
 					'url'  => $_list,
 					'cover'=> $_cover,
 					'title'=> $_title,
 					'tags' => $_tags,
-					'intro'=> $_intro,
-					'view'=> 1
-				])
+					'intro'=> $_desc,
+					'view'=> $_view,
+					'author_id'=> $_theID,
+					'id'=> $_UUID,
+					'nick'=> $_nick
+				]);
+				$cls->code = 200;
+				$cls->msg = '上传成功';
 				break;
+			
+			case $tableW:
+				createTable($tableW,$createWriteTable);
+				$_theID = hasFn();
+				$_UUID = genUUID();
+				$_SHOW = decodeStr(DATA['show']);
+				$_TAGS = decodeStr(DATA['tags']);
+				$_MD = decodeStr(DATA['md']);
+				$db->insert($tableW,[
+					'md' => $_MD,
+					'cover'=> $_cover,
+					'title'=> $_title,
+					'tags' => $_TAGS,
+					'show'=> $_SHOW,
+					'view'=> $_view,
+					'author_id'=> $_theID,
+					'id'=> $_UUID,
+					'nick'=> $_nick	
+				]);
+				break;
+
 			default:
-				$cls->code = 404;
+				$cls->code = 250;
 				$cls->msg = '未知错误 :(';
 				break;
 		}

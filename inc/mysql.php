@@ -11,19 +11,41 @@ $createUserTable = "CREATE TABLE `music`.`user` (
   `admin` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '是否为管理员'
 ) ENGINE = InnoDB";
 
-$THECODE = "
-`url` JSON NOT NULL COMMENT '链接' ,
-`cover` TEXT NOT NULL COMMENT '封面' ,
-`title` TEXT NOT NULL COMMENT '标题' , 
-`tags` TEXT NOT NULL COMMENT '标签' , 
-`intro` TEXT NOT NULL COMMENT '介绍' , 
-`view` INT NOT NULL COMMENT '播放量 - 查看量' , 
-`author_id` TEXT NOT NULL COMMENT '用户的 id' , 
-`id` TEXT NOT NULL COMMENT '本身的id' , 
-`nick` INT NOT NULL COMMENT '点赞数' , 
-`time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
-";
+$createVideosTable = "CREATE TABLE `music`.`videos` (
+  `url` JSON NOT NULL COMMENT '链接' ,
+  `cover` TEXT NOT NULL COMMENT '封面' ,
+  `title` TEXT NOT NULL COMMENT '标题' , 
+  `tags` TEXT NOT NULL COMMENT '标签' , 
+  `intro` TEXT NOT NULL COMMENT '介绍' , 
+  `view` INT NOT NULL COMMENT '播放量 - 查看量' , 
+  `author_id` TEXT NOT NULL COMMENT '用户的 id' , 
+  `id` TEXT NOT NULL COMMENT '本身的id' , 
+  `nick` INT NOT NULL COMMENT '点赞数' , 
+  `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+) ENGINE = InnoDB";
 
-$createVideosTable = "CREATE TABLE `music`.`videos` (" . $THECODE . ") ENGINE = InnoDB";
+$createMusicsTable = "CREATE TABLE `music`.`music` (
+  `url` JSON NOT NULL COMMENT '链接' ,
+  `cover` TEXT NOT NULL COMMENT '封面' ,
+  `title` TEXT NOT NULL COMMENT '标题' , 
+  `tags` TEXT NOT NULL COMMENT '标签' , 
+  `intro` TEXT NOT NULL COMMENT '介绍' , 
+  `view` INT NOT NULL COMMENT '播放量 - 查看量' , 
+  `author_id` TEXT NOT NULL COMMENT '用户的 id' , 
+  `id` TEXT NOT NULL COMMENT '本身的id' , 
+  `nick` INT NOT NULL COMMENT '点赞数' , 
+  `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+) ENGINE = InnoDB";
 
-$createMusicsTable = "CREATE TABLE `music`.`musics` (" . $THECODE . ") ENGINE = InnoDB";
+$createWriteTable = "CREATE TABLE `music`.`write` (
+  `md` TEXT NOT NULL COMMENT '内容' ,
+  `cover` TEXT NOT NULL COMMENT '封面' ,
+  `title` TEXT NOT NULL COMMENT '标题' , 
+  `tags` TEXT NOT NULL COMMENT '标签' , 
+  `show` TEXT NOT NULL COMMENT '一句话介绍' , 
+  `view` INT NOT NULL COMMENT '播放量 - 查看量' , 
+  `author_id` TEXT NOT NULL COMMENT '用户的 id' , 
+  `id` TEXT NOT NULL COMMENT '本身的id' , 
+  `nick` INT NOT NULL COMMENT '点赞数' , 
+  `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+) ENGINE = InnoDB";

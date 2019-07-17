@@ -1,47 +1,16 @@
 <?php
+  require_once($_SERVER["DOCUMENT_ROOT"].'/inc/utils.php');
   $rt = $_SERVER["DOCUMENT_ROOT"].'/templete/';
   $flag = true;
+  $title = '/home';
+  if (!$FACE) header('Location: /');
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
-  <title></title>
+  <title><?php echo $title ?></title>
   <?php require_once($rt.'header.php') ?>
-  <style>
-    .swiper-container {
-      width: 100%;
-      height: 100%;
-    }
-
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #000;
-      width: 80%;
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
-
-    .swiper-slide:nth-child(2n) {
-      width: 60%;
-    }
-
-    .swiper-slide:nth-child(3n) {
-      width: 40%;
-    }
-  </style>
 </head>
 
 <body>
@@ -213,19 +182,5 @@
   <?php require_once($rt.'footer.php') ?>
 </body>
 <?php require_once($rt.'script.php') ?>
-<script>
-  var swiper = new Swiper('.swiper-container', {
-    lazy: true,
-    loop: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
-</script>
 
 </html>
