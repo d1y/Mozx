@@ -2,13 +2,16 @@
 
 require_once $_SERVER["DOCUMENT_ROOT"] . '/inc/utils.php';
 $lang = checkLang();
-$deCode = TokenCode($_COOKIE['token'],true)['sub'];
-$id = letSQL()->select('user',[
-  'id',
-  'admin'
-],[
-  'username'=> $deCode
-])[0];
+if ($FACE) {
+  $deCode = TokenCode($_COOKIE['token'],true)['sub'];
+  $id = letSQL()->select('user',[
+    'id',
+    'admin'
+  ],[
+    'username'=> $deCode
+  ])[0];
+}
+
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
   <a class="navbar-brand" href="#">MOZX</a>

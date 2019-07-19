@@ -42,11 +42,13 @@ $(() => {
   }
   if (currentQuery == 'user') {
     loadUserData(data => {
-      oldPage.attr('data-page', data.currentpage)
-      nextPage.attr('data-page', data.totalpage)
-      if (data.currentpage == 1) oldPage.attr('disabled', true)
-      if (data.totalpage <= 1) nextPage.attr('disabled', true)
+      $('#nextBtn')
+        .attr('data-total', data.totalpage)
+        .attr('data-current', data.currentpage)
       uploadTable(data.data)
+      if (data.totalpage <= 1) {
+        $('#nextBtn').remove()
+      }
     })
   }
 
@@ -56,33 +58,17 @@ $(() => {
       $(tbodyWrap).append(genTable(item))
     })
   }
-  window.userFoucs = e => {
-    let currPage = $(e).attr('data-page')
-    if (e.dataset.type == 'old') {
-      if (currPage > 1) {
-        --currPage
-        $(e).attr('data-page', currPage)
-        if (currPage <= 1) $(e).attr('disabled', true)
-        nextPage.attr('disabled', false)
-        loadUserData(data => uploadTable(data.data, true), currPage)
-      } else {
-        $(e).attr('disabled', true)
-      }
+  $('#nextBtn').on('click',function() {
+    let curr = $(this).attr('data-current'),
+        total = $(this).attr('data-total')
+    if (curr >= total) {
+      $(this).remove()
     } else {
-      let old = oldPage.attr('data-page')
-      if (old >= currPage) {
-        $(e).attr('disabled', true)
-      } else {
-        ++old
-        loadUserData(data => uploadTable(data.data, true), old)
-        let flag = old >= nextPage.attr('data-page')
-        oldPage.attr('disabled', false)
-        nextPage.attr('disabled', flag)
-        oldPage.attr('data-page', old)
-      }
+      ++curr
+      if (curr >= total) $(this).remove()
+      loadUserData(data => uploadTable(data.data), curr)
     }
-
-  }
+  })
   window.editUser = t => {
     let ele = $(t),
       id = ele.attr('data-id'),

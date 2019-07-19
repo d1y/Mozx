@@ -92,15 +92,7 @@
               </table>
               <div class="text-center">
                 <div class="pager clearfix w-50 d-inline-block">
-                  <button class="btn-lg previous float-left" onclick="userFoucs(this)" data-type="old" id="oldPage"
-                    style="cursor:pointer;">
-                    <a>&larr; Older</a>
-                  </button>
-                  <button class="btn-lg next float-right" onclick="userFoucs(this)" data-type="next" id="nextPage"
-                    style="cursor:pointer;">
-                    <a>Newer &rarr;</a>
-                  </button>
-                  </ul>
+                  <button type="button" id="nextBtn" class="btn btn-primary">加载更多</button>
                 </div>
               </div>
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

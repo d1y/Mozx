@@ -50,7 +50,8 @@
   float: left;
   width: 160px;
   position: relative;
-  margin: 0 0 3px;
+  /* margin: 0 0 3px; */
+  margin: 10px;
   padding: 10px;
 }
 .small-item .cover {
@@ -61,6 +62,10 @@
   height: 100px;
   overflow: hidden;
   position: relative;
+  transition: all .3s;
+}
+.small-item .cover:hover {
+  box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 .small-item .length {
   background: #111;

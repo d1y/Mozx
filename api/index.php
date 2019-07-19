@@ -304,12 +304,12 @@ if (METHOD  == 'GET') {
 		$_nick = 1;
 		$_view = 1;
 		function hasFn () {
-			global $cls,$db;
-			$_hasUserName = $_COOKIE['user'];
+			global $cls,$db,$FACE;
+			if (!$FACE) return;
+			$_username = TokenCode($_COOKIE['token'],true)['sub'];
 			$name = 'user';
-			if (!$_hasUserName) return;
 			$_searchUserName = $db->select($name,'id',[
-				'username' => $_hasUserName
+				'username' => 'fuck'
 			]);
 			if (!$_searchUserName) {
 				$cls->msg = 'cookie 获取失败';
@@ -327,7 +327,6 @@ if (METHOD  == 'GET') {
 				createTable($tableV,$createVideosTable);
 				$_urls = decodeStr(DATA['list']);
 				$_theID = hasFn();
-				$cls->test = $_theID;
 				$_UUID = genUUID();
 				if (!$_urls || !$_theID) break;
 				$_tags = decodeStr(DATA['tags']);

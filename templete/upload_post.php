@@ -41,6 +41,6 @@
       input.editor = this;
       this.update();
     }
-    new Editor($("#text-input").get(0), $("#preview").get(0));
+    new Editor(document.getElementById('text-input'), document.getElementById('preview'));
   }
 </script>
