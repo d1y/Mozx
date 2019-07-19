@@ -32,6 +32,9 @@
   $goLink = $_GET['go'];
   if (!$goLink) $goLink = 'about';
   $error_text = '该用户不存在,请求失败';
+  $log = PVPlus([
+    'id'=> $_GET['id']
+  ]);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -129,7 +132,45 @@
           <?php } ?>
         </div>
         <div class="push-item push_post collapse <?php echo $goLink == 'post' ? 'show' : '' ?>">
-          4
+          <div class="clearfix p-4">
+            <div class="article-wrap">
+              <?php foreach(joinArr($post) as $obj) {?>
+              <div class="article-item">
+                <div class="clearfix">
+                  <div class="article-content float-left" style="width: 82%">
+                    <h2 class="article-title">
+                      <a href="#">
+                        <?php echo json_decode($obj['title']) ?>
+                      </a>
+                    </h2>
+                    <p class="article-con">
+                      <a href="#">
+                        <?php echo json_decode($obj['show']) ?>
+                      </a>
+                    </p>
+                    <div class="meta-col">
+                      <span>标签: <u class="text-primary"><?php echo json_decode($obj['tags']) ?></u></span>
+                      <span>访问量: <u class="text-primary"><?php echo json_decode($obj['view']) ?></u></span>
+                      <span>喜欢数: <u class="text-primary"><?php echo json_decode($obj['nick']) ?></u></span>
+                      <span>创建时间: <u class="text-primary"><?php echo date('Y-m-d',strtotime($obj['time'])) ?></u></span>
+                    </div>
+                  </div>
+                  <h2 class="article-img float-left">
+                    <a href="#" target="_blank" class="article-bgimg">
+                      <div class="article-cover"
+                        style="background-image: url(<?php echo json_decode($obj['cover']) ?>)"></div>
+                    </a>
+                  </h2>
+                </div>
+              </div>
+              <?php } ?>
+              <?php if (count($post) > 5) { ?>
+              <div class="text-center">
+                <button type="button" class="btn btn-primary">加载更多</button>
+              </div>
+              <?php } ?>
+            </div>
+          </div>
         </div>
       </div>
     </div>

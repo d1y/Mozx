@@ -111,12 +111,12 @@ function setCURL($id = 20160529, $flag = true) {
   $ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.17 (KHTML, like Gecko) Version/6.0.2 Safari/536.26.17";
   if (substr($id,0,2) == 'av') $id = substr($id,2);
   $url = $flag ? "https://api.bilibili.com/x/web-interface/view?aid=$id" : $id;
-  $ch = curl_init(); 
+  $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_REFERER, 'http://www.google.cn/');
   curl_setopt($ch, CURLOPT_USERAGENT, $ua);
-  $output = curl_exec($ch); 
+  $output = curl_exec($ch);
   curl_close($ch);
   return $output;
 }
@@ -135,6 +135,26 @@ function dd($var) {
     echo "</pre>\n";
     die;
 }
+
+function PVPlus(array $where, string $table = 'user') {
+  // @tips: 访问量自增
+  // @return => array
+  return letSQL()->update($table,['view[+]' => 1],$where);
+}
+
+function randGetIndex(array $col, string $table = 'videos') {
+  // @tips: 随机查询
+  // @return => array
+  return letSQL()->rand($table,$col,[
+    'LIMIT' => [0,16]
+  ]);
+}
+
+// @tips: 原生随机查询,性能高,但是会重复
+// $test = letSQL()->query('
+//   SELECT * FROM videos WHERE
+//   id >= ((SELECT MAX(id) FROM videos)-(SELECT MIN(id) FROM videos)) * RAND() + (SELECT MIN(id) FROM videos) limit 5
+// ')->fetchAll();
 
 // var
 $currentPath = $_SERVER['DOCUMENT_ROOT'];

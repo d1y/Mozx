@@ -4,6 +4,25 @@
   $flag = true;
   $title = '/home';
   if (!$FACE) header('Location: /');
+  $videos = randGetIndex([
+    'cover',
+    'title','tags',
+    'view','id',
+    'nick','time'
+  ]);
+  $musics = randGetIndex([
+    'cover',
+    'title','tags',
+    'view','id',
+    'time'
+  ],'music');
+  $posts = randGetIndex([
+    'cover',
+    'title','tags',
+    'view','id',
+    'show','nick',
+    'time'
+  ],'write');
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -24,21 +43,20 @@
       </div>
     </div>
     <div class="clearfix">
-      <?php for ($i=0;$i<10;$i++) { ?>
+      <?php foreach ($musics as $k) { ?>
       <div class="small-item fakeDanmu-item">
         <a href="#" class="cover">
-          <img src="//i2.hdslb.com/bfs/archive/2f5eecaeed1c413e981bdc521ab5627aa981a116.jpg@160w_100h.jpg" alt="">
-          <span class="length">03:15</span>
+          <img src=<?php echo $k['cover'] ?> alt="">
         </a>
-        <a href="#" class="title" target="_blank">Adrenalize & MC DL - Endless Affection</a>
+        <a href="#" class="title" target="_blank"><?php echo json_decode($k['title']) ?></a>
         <div class="meta">
           <span class="play">
             <i class="czs czs-eye-l"></i>
-            4
+            <?php echo $k['view'] ?>
           </span>
           <span class="time">
             <i class="czs czs-time-l"></i>
-            06-26
+            <?php echo date("m-d", strtotime($k['time'])) ?>
           </span>
         </div>
       </div>
@@ -55,21 +73,20 @@
       </div>
     </div>
     <div class="clearfix headline">
-      <?php for ($i=0;$i<10;$i++) { ?>
+      <?php foreach($videos as $v) { ?>
       <div class="small-item fakeDanmu-item">
         <a href="#" class="cover">
-          <img src="//i2.hdslb.com/bfs/archive/2f5eecaeed1c413e981bdc521ab5627aa981a116.jpg@160w_100h.jpg" alt="">
-          <span class="length">03:15</span>
+          <img src=<?php echo $v['cover'] ?> alt="">
         </a>
-        <a href="#" class="title" target="_blank">Adrenalize & MC DL - Endless Affection</a>
+        <a href="#" class="title" target="_blank"><?php echo json_decode($v['title']) ?></a>
         <div class="meta">
           <span class="play">
             <i class="czs czs-eye-l"></i>
-            4
+            <?php echo $v['view'] ?>
           </span>
           <span class="time">
             <i class="czs czs-time-l"></i>
-            06-26
+            <?php echo date("m-d", strtotime($v['time'])) ?>
           </span>
         </div>
       </div>
@@ -77,7 +94,7 @@
     </div>
   </div>
   <hr>
-  <div class="p-4">
+  <!-- <div class="p-4">
     <div class="clearfix headline">
       <i class="icon icon-game"></i>
       <div class="float-left">
@@ -86,30 +103,10 @@
       </div>
     </div>
     <div class="clearfix headline">
-      <?php for ($i=0;$i<10;$i++) { ?>
-      <div class="small-item fakeDanmu-item">
-        <a href="#" class="cover">
-          <img src="//i2.hdslb.com/bfs/archive/2f5eecaeed1c413e981bdc521ab5627aa981a116.jpg@160w_100h.jpg" alt="">
-          <span class="length">03:15</span>
-        </a>
-        <a href="#" class="title" target="_blank">Adrenalize & MC DL - Endless Affection</a>
-        <div class="meta">
-          <span class="play">
-            <i class="czs czs-eye-l"></i>
-            4
-          </span>
-          <span class="time">
-            <i class="czs czs-time-l"></i>
-            06-26
-          </span>
-        </div>
-      </div>
-      <?php } ?>
     </div>
-  </div>
-  <hr>
+  </div> -->
   <div class="p-4">
-    <div class="clearfix headline">
+    <div class="clearfix headline mb-4">
       <i class="icon icon-promote"></i>
       <div class="float-left">
         <a href="#" class="name">知识专栏</a>
@@ -118,64 +115,36 @@
     </div>
     <div class="clearfix">
       <div class="article-wrap">
+        <?php foreach($posts as $obj) {?>
         <div class="article-item">
           <div class="clearfix">
-            <div class="article-content float-left">
+            <div class="article-content float-left" style="width: 82%">
               <h2 class="article-title">
                 <a href="#">
-                  『电音贫道』拿好！这是你必备的Progressive House分类秘籍
+                  <?php echo json_decode($obj['title']) ?>
                 </a>
               </h2>
               <p class="article-con">
                 <a href="#">
-                  侵权必删 - 来自: https://zhuanlan.zhihu.com/p/36778777过往的各种道听途说或许令你不禁发问：“听说这是Progressive House，那种听起来截然不同的曲
+                  <?php echo json_decode($obj['show']) ?>
                 </a>
               </p>
               <div class="meta-col">
-                <span>音乐舞蹈</span>
-                <span title="访问量" class="view"><i class="icon"></i>158</span>
-                <span title="喜欢数" class="like"><i class="icon"></i>7</span>
-                <span title="评论" class="comment"><i class="icon"></i>2</span>
-                <span title="创建时间" class="time"><i class="icon"></i>2018-6-11</span>
+                <span>标签: <u class="text-primary"><?php echo json_decode($obj['tags']) ?></u></span>
+                <span>访问量: <u class="text-primary"><?php echo json_decode($obj['view']) ?></u></span>
+                <span>喜欢数: <u class="text-primary"><?php echo json_decode($obj['nick']) ?></u></span>
+                <span>创建时间: <u class="text-primary"><?php echo date('Y-m-d',strtotime($obj['time'])) ?></u></span>
               </div>
             </div>
             <h2 class="article-img float-left">
               <a href="#" target="_blank" class="article-bgimg">
-                <div class="article-cover" style="background-image: url(&quot;//i0.hdslb.com/bfs/article/8054d706e3cffd38b8cab221a9f7266ed43f872c.jpg&quot;);"></div>
+                <div class="article-cover"
+                  style="background-image: url(<?php echo json_decode($obj['cover']) ?>)"></div>
               </a>
             </h2>
           </div>
         </div>
-        <div class="article-item">
-          <div class="clearfix">
-            <div class="article-content float-left">
-              <h2 class="article-title"><a href="//www.bilibili.com/read/cv576243" target="_blank" title="探索贫道——旋律派Hardstyle制作人代表之一Atmozfears">
-                  探索贫道——旋律派Hardstyle制作人代表之一Atmozfears</a></h2>
-              <p class="article-con"><a href="//www.bilibili.com/read/cv576243" target="_blank" title="Power by ATMOZFEARS!!!Atmozfears真名为Tim van de Stadt，出生于1992年11月5日，是一位来自荷兰的著名旋律派Hardstyle DJ制作人之一！run">
-                  Power by ATMOZFEARS!!!Atmozfears真名为Tim van de Stadt，出生于1992年11月5日，是一位来自荷兰的著名旋律派Hardstyle DJ制作人之一！run</a></p>
-              <div class="meta-col"><span>日常</span><span title="访问量" class="view"><i class="icon"></i>71</span><span title="喜欢数" class="like"><i class="icon"></i>4</span><span title="评论" class="comment"><i class="icon"></i>2</span><span title="创建时间"
-                  class="time"><i class="icon"></i>2018-6-11</span></div>
-            </div>
-            <h2 class="article-img float-left"><a href="//www.bilibili.com/read/cv576243" target="_blank" class="article-bgimg">
-                <div title="探索贫道——旋律派Hardstyle制作人代表之一Atmozfears" class="article-cover" style="background-image: url(&quot;//i0.hdslb.com/bfs/article/b2e478db2c17ab24e8a6426e7d1058ebbb914bee.jpg&quot;);"></div>
-              </a></h2>
-          </div>
-        </div>
-        <div class="article-item">
-          <div class="clearfix">
-            <div class="article-content float-left">
-              <h2 class="article-title"><a href="//www.bilibili.com/read/cv560387" target="_blank" title="探索贫道 - 如何下载Youtube视频">
-                  探索贫道 - 如何下载Youtube视频</a></h2>
-              <p class="article-con"><a href="//www.bilibili.com/read/cv560387" target="_blank" title="日常搬运都是在油管上，觉得不错的都会搬到b站来下载之网址篇在网址中添加ss在网址中添加1s在网址中删除ubehttp://www.youtudownloader.com/http://convert2">
-                  日常搬运都是在油管上，觉得不错的都会搬到b站来下载之网址篇在网址中添加ss在网址中添加1s在网址中删除ubehttp://www.youtudownloader.com/http://convert2</a></p>
-              <div class="meta-col"><span>学习</span><span title="访问量" class="view"><i class="icon"></i>267</span><span title="喜欢数" class="like"><i class="icon"></i>7</span><span title="评论" class="comment"><i class="icon"></i>0</span><span title="创建时间"
-                  class="time"><i class="icon"></i>2018-6-7</span></div>
-            </div>
-            <h2 class="article-img float-left"><a href="//www.bilibili.com/read/cv560387" target="_blank" class="article-bgimg">
-                <div title="探索贫道 - 如何下载Youtube视频" class="article-cover" style="background-image: url(&quot;//i0.hdslb.com/bfs/article/d4d2ea1db74e421b613fb2c339fa9db1bfcd812d.jpg&quot;);"></div>
-              </a></h2>
-          </div>
-        </div>
+        <?php } ?>
       </div>
     </div>
   </div>
