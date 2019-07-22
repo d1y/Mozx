@@ -362,4 +362,59 @@ $(() => {
 		let open = $(this).attr('data-open')
 		window.location.href = open
 	})
+
+	function state() {
+		let ele = $(this),
+				framePlayer = $('#Fplayer'),
+				frameFlag = parseInt(ele.attr('data-frame')),
+				openURL = ele.attr('data-url'),
+				parentWrap = ele.parent('div'),
+				list = parentWrap.find('button'),
+				number = $('.currentNumber'),
+				total = number.html().split('/')[1]
+				currentNumber = ele.attr('data-number'),
+				dPlayer = $('#Dplayer')
+		currentNumber++
+		list.removeClass('active')
+		ele.addClass('active')
+		if (frameFlag) {
+			dPlayer.hide()
+			framePlayer.show()
+			framePlayer.attr('src',openURL)
+			number.html(`${currentNumber}/${total}`)
+		} else {
+			dPlayer.show()
+			framePlayer.hide()
+			DP.switchVideo({
+				url: openURL
+			})
+			number.html(`${currentNumber}/${total}`)
+		}
+		return false
+	}
+	$('.list-btn').on('click',state)
+	$('#LIKE').on('click',function() {
+		let url = new URL(window.location.href),
+				type = url.searchParams.get('type'),
+				id = url.searchParams.get('id'),
+				ele = this
+		if (type == 'post') type = 'write'
+		if (!type || !id) {
+			return swal('参数获取失败~')
+		}
+		$.ajax({
+			url: `/api/index.php`,
+			method: 'post',
+			data: {
+				type: 'view',
+				do: type,
+				id: id
+			},
+			success(data) {
+				swal(data.msg)
+				$(ele).attr('disabled',true)
+			},
+			error: e=> console.error(e)
+		})
+	})
 })

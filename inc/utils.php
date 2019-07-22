@@ -4,6 +4,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 require_once 'jwt.php';
 use Medoo\Medoo;
 
+// var
+$currentPath = $_SERVER['DOCUMENT_ROOT'];
+$currentTemp = $currentPath.'/templete/';
+
 $TK = new Jwt;
 function TokenCode ($code, $flag = false) {
   global $TK;
@@ -31,6 +35,17 @@ function hasToken() {
 }
 $FACE = hasToken();
 
+function hasConID($ID, $TYPE = 'videos', $MSG = '参数不存在') {
+  global $currentTemp;
+  // return letSQL()->has('videos',['id'=>'2019071860700']);
+  $FLAG = letSQL()->has($TYPE,['id' => $ID]);
+  if (!$FLAG) {
+    $error_text = $MSG;
+    require_once $currentTemp . 'error.php';
+    return 0;
+  }
+  return 1;
+}
 /*
 ** 首先把秘钥通过 base64 加密,将其反转 => 获取解密秘钥
 ** 把加密秘钥去除 加密秘钥的 1/4 长度在前面, 3/4 长度在后面 (四舍五入)
@@ -136,10 +151,10 @@ function dd($var) {
     die;
 }
 
-function PVPlus(array $where, string $table = 'user') {
+function PVPlus(array $where, string $table = 'user', $col = 'view') {
   // @tips: 访问量自增
   // @return => array
-  return letSQL()->update($table,['view[+]' => 1],$where);
+  return letSQL()->update($table,[$col.'[+]' => 1],$where);
 }
 
 function randGetIndex(array $col, string $table = 'videos') {
@@ -155,7 +170,3 @@ function randGetIndex(array $col, string $table = 'videos') {
 //   SELECT * FROM videos WHERE
 //   id >= ((SELECT MAX(id) FROM videos)-(SELECT MIN(id) FROM videos)) * RAND() + (SELECT MIN(id) FROM videos) limit 5
 // ')->fetchAll();
-
-// var
-$currentPath = $_SERVER['DOCUMENT_ROOT'];
-$currentTemp = $currentPath.'/templete/';

@@ -123,7 +123,7 @@ if (METHOD  == 'GET') {
 					}
 				}
 				break;
-			
+
 			case 'login':
 				if ($flag) {
 					$_check = $db->select($table,'*',[
@@ -158,7 +158,7 @@ if (METHOD  == 'GET') {
 				$_currCount = (int)DATA['count'];
 				$_currTest = 4; // defalut count
 				$_offset = 0;
-	
+
 				$_page = $_currPage ? $_currPage : 1;
 				$_count = $_currCount ? $_currCount : $_currTest;
 				$_totalCount = $db->count($table);
@@ -333,7 +333,7 @@ if (METHOD  == 'GET') {
 				$db->insert($tableV,[
 					'url' => $_urls,
 					'cover' => $_cover,
-					'title' => $_title,         
+					'title' => $_title,
 					'tags' => $_tags,
 					'intro' => $_desc,
 					'view' => $_view,
@@ -344,7 +344,7 @@ if (METHOD  == 'GET') {
 				$cls->msg = '上传成功';
 				$cls->code = 200;
 				break;
-			
+
 			case $tableM:
 				createTable($tableM,$createMusicsTable);
 				$_theID = hasFn();
@@ -366,7 +366,7 @@ if (METHOD  == 'GET') {
 				$cls->code = 200;
 				$cls->msg = '上传成功';
 				break;
-			
+
 			case $tableW:
 				createTable($tableW,$createWriteTable);
 				$_theID = hasFn();
@@ -383,15 +383,19 @@ if (METHOD  == 'GET') {
 					'view'=> $_view,
 					'author_id'=> $_theID,
 					'id'=> $_UUID,
-					'nick'=> $_nick	
+					'nick'=> $_nick
 				]);
 				break;
-
 			default:
 				$cls->code = 250;
 				$cls->msg = '未知错误 :(';
 				break;
 		}
+	} else if ($_type == 'view') {
+		$DO = DATA['do'];
+		PVPlus([ 'id' => $FUCKID ],$DO,'nick');
+		$cls->msg = '点赞成功';
+		$cls->code = 200;
 	};
 } else {
 	$cls->msg = '不接受其他请求方式';

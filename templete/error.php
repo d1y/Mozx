@@ -2,7 +2,13 @@
 报错信息
 by @d1y
  -->
-
+<style media="screen">
+  body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+</style>
 <div style="
   position: fixed;
   z-index: 43999;
