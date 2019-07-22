@@ -45,10 +45,10 @@
     <div class="clearfix">
       <?php foreach ($musics as $k) { ?>
       <div class="small-item fakeDanmu-item">
-        <a href="#" class="cover">
+        <a href="../view/index.php?type=music&id=<?php echo $k['id'] ?>" class="cover">
           <img src=<?php echo $k['cover'] ?> alt="">
         </a>
-        <a href="#" class="title" target="_blank"><?php echo json_decode($k['title']) ?></a>
+        <a href="../view/index.php?type=music&id=<?php echo $k['id'] ?>" class="title" target="_blank"><?php echo json_decode($k['title']) ?></a>
         <div class="meta">
           <span class="play">
             <i class="czs czs-eye-l"></i>
@@ -75,10 +75,10 @@
     <div class="clearfix headline">
       <?php foreach($videos as $v) { ?>
       <div class="small-item fakeDanmu-item">
-        <a href="#" class="cover">
+        <a href="../view/index.php?type=videos&id=<?php echo $v['id'] ?>" class="cover">
           <img src=<?php echo $v['cover'] ?> alt="">
         </a>
-        <a href="#" class="title" target="_blank"><?php echo json_decode($v['title']) ?></a>
+        <a href="../view/index.php?type=videos&id=<?php echo $v['id'] ?>" class="title" target="_blank"><?php echo json_decode($v['title']) ?></a>
         <div class="meta">
           <span class="play">
             <i class="czs czs-eye-l"></i>
@@ -120,12 +120,12 @@
           <div class="clearfix">
             <div class="article-content float-left" style="width: 82%">
               <h2 class="article-title">
-                <a href="#">
+                <a href="../view/index.php?type=post&id=<?php echo $obj['id'] ?>">
                   <?php echo json_decode($obj['title']) ?>
                 </a>
               </h2>
               <p class="article-con">
-                <a href="#">
+                <a href="../view/index.php?type=post&id=<?php echo $obj['id'] ?>">
                   <?php echo json_decode($obj['show']) ?>
                 </a>
               </p>
