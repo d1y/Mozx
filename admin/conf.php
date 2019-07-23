@@ -133,7 +133,35 @@
                 <button class="btn btn-success" id="confirm_admin">设置管理员</button>
               </div>
               <?php } else if ($_type == 'post') { ?>
-              <p>post</p>
+              <?php
+                $result = letSQL()->select('videos','*',[
+                  'LIMIT' => [0,20]
+                ]);
+               ?>
+              <table class="table" id="userTable">
+              <thead class="bg-primary text-white">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">NickName</th>
+                  <th scope="col">UserName</th>
+                  <th scope="col">CreateTime</th>
+                  <th scope="col">Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php foreach($result as $k) { ?>
+                <tr>
+                  <th scope="row">5d2c9d62cce14</th>
+                  <td>Maris Laffin</td>
+                  <td>fuck</td>
+                  <td>2019-07-15 23:36:02</td>
+                  <td>
+                    <button class="btn btn-success" data-id="5d2c9d62cce14" data-nick="Maris Laffin" data-toggle="modal" data-target="#exampleModal" onclick="editUser(this)"> 编辑</button>
+                  </td>
+                </tr>
+              <?php } ?>
+              </tbody>
+              </table>
               <?php } else if ($_type == 'diy') { ?>
               <p>diy</p>
               <?php } ?>

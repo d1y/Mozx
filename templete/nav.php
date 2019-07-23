@@ -25,7 +25,7 @@ if ($FACE) {
       <li class="nav-item active">
         <a class="nav-link" href="/">主站</a>
       </li>
-      <?php if ($id[0]['admin'] == '1') { ?>
+      <?php if ($id['admin'] == '1') { ?>
       <li class="nav-item">
         <a href="/admin/conf.php" class="nav-link">管理员设置</a>
       </li>

@@ -1,7 +1,8 @@
 <?php
 
+$NAME = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/config.json'))->MOX_DB_NAME;
 
-$createUserTable = "CREATE TABLE `music`.`user` ( 
+$createUserTable = "CREATE TABLE `$NAME`.`user` ( 
   `id` TEXT NOT NULL COMMENT '用户id',
   `nickname` TEXT NOT NULL COMMENT '用户花名',
   `username` TEXT NOT NULL COMMENT '登录用户名',
@@ -11,7 +12,7 @@ $createUserTable = "CREATE TABLE `music`.`user` (
   `admin` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '是否为管理员'
 ) ENGINE = InnoDB";
 
-$createVideosTable = "CREATE TABLE `music`.`videos` (
+$createVideosTable = "CREATE TABLE `$NAME`.`videos` (
   `url` JSON NOT NULL COMMENT '链接' ,
   `cover` TEXT NOT NULL COMMENT '封面' ,
   `title` TEXT NOT NULL COMMENT '标题' , 
@@ -24,7 +25,7 @@ $createVideosTable = "CREATE TABLE `music`.`videos` (
   `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE = InnoDB";
 
-$createMusicsTable = "CREATE TABLE `music`.`music` (
+$createMusicsTable = "CREATE TABLE `$NAME`.`music` (
   `url` JSON NOT NULL COMMENT '链接' ,
   `cover` TEXT NOT NULL COMMENT '封面' ,
   `title` TEXT NOT NULL COMMENT '标题' , 
@@ -37,7 +38,7 @@ $createMusicsTable = "CREATE TABLE `music`.`music` (
   `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE = InnoDB";
 
-$createWriteTable = "CREATE TABLE `music`.`write` (
+$createWriteTable = "CREATE TABLE `$NAME`.`write` (
   `md` TEXT NOT NULL COMMENT '内容' ,
   `cover` TEXT NOT NULL COMMENT '封面' ,
   `title` TEXT NOT NULL COMMENT '标题' , 

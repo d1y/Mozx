@@ -63,15 +63,18 @@
     function preview(wrap, text) {
       return wrap.innerHTML = markdown.toHTML(text);
     }
+    console.log($text)
     preview(wrap,$text);
   }
   <?php
     if (!$content['intro']) $content['intro'] = $content['show'];
   ?>
   <?php if ($remake == 'post') { ?>
-    mdPreview(<?php echo json_decode($content['md']) ?>)
+    let b = <?php echo json_decode($content['md']) ?>;
+    console.log(b)
+    mdPreview(b)
   <?php } else { ?>
-    mdPreview(<?php echo json_decode($content['intro']) ?>)
+    mdPreview(<?php echo $content['intro'] ?>)
   <?php } ?>
   function QRcode(url) {
     $('#img').qrcode(url)
