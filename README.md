@@ -14,6 +14,21 @@
 
 ❤️ 新手推荐使用宝塔面板来搭建 (**PHP>=7.1**)
 
+🌻 只需要修改配置文件`config.json`即可快速开始:
+
+```json
+{
+	"MOX_VERSION": "0.0.1",
+	"MOX_AUTHOR": "@d1y",
+	"MOX_AUTHOR_LINK": "http://d1y.live",
+	"MOX_DB_HOST": "localhost", // 数据库地址
+	"MOX_DB_USER": "root",  // 数据库用户名
+	"MOX_DB_PWD": "root",  // 数据库密码
+	"MOX_DB_NAME": "music", // 数据库
+	"MOX_DB_PORT": 8889 // 端口,若是默认端口也要写
+}
+```
+
 ⬇️ 下面是截图
 
 #### 登录页面
