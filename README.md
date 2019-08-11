@@ -55,7 +55,7 @@
 ![](https://i.loli.net/2019/08/11/ydWar6QoCY79HUO.png)
 
 
-**全部支持`Markdown`语法,我实在太爱着家伙了!**
+**全部支持`Markdown`语法,我实在太爱这家伙了!**
 
 
 ## 用到的开源项目
